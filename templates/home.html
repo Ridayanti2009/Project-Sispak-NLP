@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentiCheck - Analisis Sentimen Cerdas</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                SentiCheck
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Beranda</a></li>
+                <li><a href="#">Tentang</a></li>
+                <li><a href="#">API</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="analysis-container">
+                <div class="icon">📊</div>
+                <h1>Analisis Sentimen Instan</h1>
+                <p>Tempelkan ulasan produk, komentar, atau teks apa pun untuk mengetahui sentimen di baliknya secara akurat.</p>
+                
+                <form action="#" method="post" class="analysis-form">
+                    <textarea 
+                        name="review_text" 
+                        id="review_text" 
+                        rows="6" 
+                        placeholder="Contoh: 'Kualitas kamera hp ini sangat bagus, gambarnya jernih banget!'"></textarea>
+                    <button type="submit" class="cta-button">Analisis Sekarang</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 SentiCheck. Hak Cipta Dilindungi.</p>
+    </footer>
+
+</body>
+</html>
