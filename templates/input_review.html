@@ -15,7 +15,6 @@
             <a href="home.html" class="logo">SentiCheck</a>
             <ul class="nav-links">
                 <li><a href="{{ url_for('home') }}">Beranda</a></li>
-                <li><a href="{{ url_for('hasil') }}">Hasil</a></li>
                 <li><a href="{{ url_for('tentang') }}">Tentang</a></li>
                 <li><a href="{{ url_for('input_review') }}" class="active">Analisis</a></li>
             </ul>
@@ -33,7 +32,7 @@
 
             <!-- Form Container -->
             <div class="form-container" data-aos="fade-up" data-aos-delay="200">
-                <form id="reviewForm" method="POST" action="/analyze">
+                <form id="reviewForm" method="POST" action="{{url_for('process')}}">
                     <!-- Product Information -->
                     <div class="form-section">
                         <h3><span class="icon">📦</span> Informasi Produk</h3>
@@ -195,16 +194,13 @@
             analyzeBtn.textContent = 'Menganalisis...';
             loadingDiv.classList.add('active');
 
-            // Simulate API call (replace with actual backend call)
+            // Setelah simulasi animasi, submit form ke /process
             setTimeout(() => {
                 loadingDiv.classList.remove('active');
                 successDiv.classList.add('active');
-                
-                // Simulate redirect to results page
+
                 setTimeout(() => {
-                    // In real application, this would submit to your backend
-                    // For now, we'll just redirect to hasil.html
-                    window.location.href = 'hasil.html';
+                    document.getElementById('reviewForm').submit();
                 }, 2000);
             }, 3000);
         });

@@ -1,4 +1,3 @@
-# stemmer.py
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 factory = StemmerFactory()

@@ -75,10 +75,23 @@ POSITIVE_WORDS = [
 ]
 
 def analyze_sentiment(text):
-    for word in NEGATIVE_WORDS:
-        if word in text:
-            return 'Negatif', f'Mengandung kata negatif: "{word}"'
-    for word in POSITIVE_WORDS:
-        if word in text:
-            return 'Positif', f'Mengandung kata positif: "{word}"'
-    return 'Netral', 'Tidak ditemukan kata kunci kuat'
+    neg_matches = [word for word in NEGATIVE_WORDS if word in text]
+    pos_matches = [word for word in POSITIVE_WORDS if word in text]
+
+    total = len(neg_matches) + len(pos_matches)
+
+    if len(neg_matches) > len(pos_matches):
+        sentiment = 'Negatif'
+        reason = f'Mengandung kata negatif: {", ".join(neg_matches)}'
+        confidence = len(neg_matches) / total if total > 0 else 0.5
+    elif len(pos_matches) > len(neg_matches):
+        sentiment = 'Positif'
+        reason = f'Mengandung kata positif: {", ".join(pos_matches)}'
+        confidence = len(pos_matches) / total if total > 0 else 0.5
+    else:
+        sentiment = 'Netral'
+        reason = 'Tidak ditemukan kata kunci kuat' if total == 0 else f'Mengandung positif ({", ".join(pos_matches)}) dan negatif ({", ".join(neg_matches)}) dalam jumlah seimbang'
+        confidence = 0.5
+
+    return sentiment, reason, round(confidence, 2)
+

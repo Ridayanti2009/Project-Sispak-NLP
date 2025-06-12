@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Analisis - SentiCheck</title>
-    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/hasil.css') }}">
 </head>
 <body>
     <header>
         <nav class="container">
-            <a href="home.html" class="logo">SentiCheck</a>
+            <a href="{{ url_for('home') }}" class="logo">SentiCheck</a>
             <ul class="nav-links">
                 <li><a href="{{ url_for('home') }}">Beranda</a></li>
-                <li><a href="{{ url_for('hasil') }}"class="active">Hasil</a></li>
                 <li><a href="{{ url_for('tentang') }}">Tentang</a></li>
                 <li><a href="{{ url_for('input_review') }}">Analisis</a></li>
             </ul>
@@ -30,108 +27,78 @@
             </div>
 
             <div class="results-grid">
+                <!-- Kartu Hasil Sentimen -->
                 <div class="result-card fade-in" data-aos="fade-right">
                     <h3><span>🎯</span> Hasil Sentimen</h3>
                     <div class="sentiment-result">
-                        <div class="sentiment-emoji" id="sentimentEmoji"></div>
-                        <div class="sentiment-label" id="sentimentLabel"></div>
-                        <div class="confidence-score" id="confidenceText"></div>
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" id="confidenceFill"></div>
+                        <div class="sentiment-emoji" id="sentimentEmoji">
+                            {% if sentiment.lower() == 'positif' %}
+                                😊
+                            {% elif sentiment.lower() == 'negatif' %}
+                                😞
+                            {% else %}
+                                😐
+                            {% endif %}
                         </div>
-                        <p id="sentimentSummary" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;"></p>
+                        <div class="sentiment-label" id="sentimentLabel">{{ sentiment }}</div>
+
+                        <div class="confidence-score" id="confidenceText">
+                            Kepercayaan: {{ (confidence * 100) | round(1) }}%
+                        </div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill" style="width: {{ confidence * 100 }}%;"></div>
+                        </div>
+
+                        <p id="sentimentSummary">{{ reason }}</p>
                     </div>
                 </div>
 
-                <div class="result-card fade-in" data-aos="fade-left">
-                    <h3><span>📊</span> Distribusi Sentimen</h3>
-                    <div class="chart-container">
-                        <canvas id="sentimentChart"></canvas>
-                    </div>
-                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; text-align: center;">
-                        Visualisasi proporsi setiap kategori sentimen
-                    </p>
-                </div>
-
+                <!-- Kartu Ulasan Original -->
                 <div class="result-card full-width-section fade-in" data-aos="fade-up">
                     <h3><span>📝</span> Ulasan Original</h3>
                     <div class="original-review">
                         <h4>Teks yang Dianalisis:</h4>
-                        <div class="review-text" id="originalReviewText"></div>
+                        <div class="review-text" id="originalReviewText">{{ original }}</div>
                     </div>
                     <div class="stats-grid">
                         <div class="stat-box">
                             <div class="stat-label">Jumlah Kata</div>
-                            <div class="stat-value" id="wordCount">0</div>
+                            <div class="stat-value" id="wordCount">{{ original.split() | length }}</div>
                         </div>
                         <div class="stat-box">
                             <div class="stat-label">Jumlah Karakter</div>
-                            <div class="stat-value" id="charCount">0</div>
+                            <div class="stat-value" id="charCount">{{ original | length }}</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="result-card full-width-section keywords-section fade-in" data-aos="fade-up">
-                    <h3><span>🔍</span> Analisis Kata Kunci</h3>
-                    <div class="keywords-grid">
-                        <div class="keyword-group">
-                            <h4>Kata Positif</h4>
-                            <div class="keyword-tags" id="positiveKeywords"></div>
-                        </div>
-                        <div class="keyword-group">
-                            <h4>Kata Negatif</h4>
-                            <div class="keyword-tags" id="negativeKeywords"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="result-card fade-in" data-aos="fade-right">
-                    <h3><span>📈</span> Analisis Detail</h3>
-                    <div class="detailed-analysis-container">
-                        <div class="detail-item">
-                            <div class="detail-label">Intensitas Emosi</div>
-                            <div class="detail-bar-bg">
-                                <div class="detail-bar" id="intensityBar"></div>
-                            </div>
-                            <div class="detail-value" id="intensityValue"></div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Polaritas</div>
-                            <div class="detail-bar-bg">
-                                <div class="detail-bar" id="polarityBar"></div>
-                            </div>
-                            <div class="detail-value" id="polarityValue"></div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Subjektivitas</div>
-                            <div class="detail-bar-bg">
-                                <div class="detail-bar" id="subjectivityBar"></div>
-                            </div>
-                            <div class="detail-value" id="subjectivityValue"></div>
-                        </div>
-                    </div>
+                <!-- Kartu Hasil Preprocessing -->
+                <div class="result-card fade-in" data-aos="fade-left">
+                    <h3><span>🧹</span> Setelah Dibersihkan</h3>
+                    <div class="review-text">{{ clean }}</div>
                 </div>
 
                 <div class="result-card fade-in" data-aos="fade-left">
-                    <h3><span>💡</span> Rekomendasi</h3>
-                    <div class="recommendations">
-                        <ul class="recommendation-list" id="recommendationList"></ul>
-                    </div>
+                    <h3><span>🔁</span> Setelah Stemming</h3>
+                    <div class="review-text">{{ stemmed }}</div>
                 </div>
             </div>
 
+            <!-- Tombol Aksi -->
             <div class="action-buttons" data-aos="fade-up">
-                <a href="input_review.html" class="btn btn-primary"><span>🔄</span> Analisis Ulasan Baru</a>
-                <button onclick="downloadReport()" class="btn btn-success"><span>📥</span> Download Laporan</button>
-                <button onclick="shareResult()" class="btn btn-secondary"><span>📤</span> Bagikan Hasil</button>
-                <button onclick="window.print()" class="btn btn-secondary"><span>🖨️</span> Print Hasil</button>
+                <a href="{{ url_for('input_review') }}" class="btn btn-primary">
+                    <span>🔄</span> Analisis Ulasan Baru
+                </a>
+                <button onclick="window.print()" class="btn btn-secondary">
+                    <span>🖨️</span> Print Hasil
+                </button>
             </div>
         </div>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    
-    <script src="hasil-script.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>
