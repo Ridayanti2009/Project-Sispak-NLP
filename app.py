@@ -12,12 +12,17 @@ def home():
 def input_review():
     return render_template('input_review.html')
 
-@app.route('/hasil', methods=['POST'])
+@app.route('/hasil', methods=['GET', 'POST'])
 def hasil():
-    review = request.form['review']
-    clean = clean_text(review)
-    sentiment, reason = analyze_sentiment(clean)
-    return render_template('hasil.html', original=review, clean=clean, sentiment=sentiment, reason=reason)
+    if request.method == 'POST':
+        review = request.form['review']
+        clean = clean_text(review)
+        sentiment, reason = analyze_sentiment(clean)
+        return render_template('hasil.html', original=review, clean=clean, sentiment=sentiment, reason=reason)
+    else:
+        # Akses via GET (misal klik link langsung)
+        return render_template('hasil.html')
+
 
 @app.route('/tentang')
 def tentang():

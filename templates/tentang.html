@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang - SentiCheck</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tentang.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="home.html" class="logo">SentiCheck</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}">Beranda</a></li>
+                <li><a href="{{ url_for('hasil') }}">Hasil</a></li>
+                <li><a href="{{ url_for('tentang') }}">Tentang</a></li>
+                <li><a href="{{ url_for('input_review') }}">Analisis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            
+            <section class="intro-section">
+                <div class="page-header" data-aos="fade-up">
+                    <h1>Tentang SentiCheck</h1>
+                    <p class="subtitle">Memahami Suara Pelanggan Melalui Teknologi Analisis Teks</p>
+                </div>
+                <div class="card intro-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>📌 Sistem Pakar Deteksi Sentimen Review Produk</h3>
+                    <p>
+                        SentiCheck adalah aplikasi cerdas yang dirancang untuk menerima masukan berupa ulasan (review) produk dari pelanggan. Sistem kami akan secara otomatis memproses dan menganalisis teks ulasan untuk mengklasifikasikan sentimennya ke dalam tiga kategori: <strong>Positif, Netral,</strong> atau <strong>Negatif</strong>.
+                    </p>
+                    <p>
+                        Ketika sentimen negatif terdeteksi, sistem pakar kami tidak hanya berhenti pada pelabelan, tetapi juga mampu memberikan rekomendasi tindak lanjut yang konkret, seperti notifikasi ke tim Quality Assurance (QA), laporan ke admin toko, hingga saran perbaikan produk untuk pengambilan keputusan yang lebih baik.
+                    </p>
+                </div>
+            </section>
+
+            <section class="tech-section">
+                <h2 class="section-title" data-aos="fade-up">🧠 Teknologi di Balik SentiCheck</h2>
+                <div class="tech-grid">
+                    <div class="card tech-card" data-aos="fade-right" data-aos-delay="200">
+                        <h4>Rule-Based Sentiment Detection</h4>
+                        <p>
+                            Inti dari SentiCheck adalah sistem pakar berbasis aturan (rule-based). Kami mendefinisikan aturan linguistik untuk mengidentifikasi sentimen.
+                        </p>
+                        <ul>
+                            <li><strong>Negatif:</strong> Jika ulasan mengandung kata kunci seperti "rusak", "tidak sesuai", "jelek", "sangat kecewa".</li>
+                            <li><strong>Positif:</strong> Jika ulasan mengandung kata kunci seperti "bagus", "cepat", "sesuai", "puas", "luar biasa".</li>
+                            <li><strong>Netral:</strong> Jika ulasan bersifat deskriptif dan tidak mengandung kata-kata emosional yang kuat.</li>
+                        </ul>
+                    </div>
+                    <div class="card tech-card" data-aos="fade-left" data-aos-delay="200">
+                        <h4>Stemming & Lemmatization</h4>
+                        <p>
+                           Untuk memahami makna inti, kami mengubah setiap kata ke bentuk dasarnya. Ini memastikan analisis yang konsisten dan akurat.
+                        </p>
+                        <ul>
+                            <li>"diberikan", "memberi", "pemberian" &rarr; <strong>"beri"</strong></li>
+                            <li>"jeleknya", "buruk", "memburuk" &rarr; <strong>"buruk"</strong></li>
+                            <li>"kecepatan", "cepatnya" &rarr; <strong>"cepat"</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pipeline-section">
+                <h2 class="section-title" data-aos="fade-up">🔁 Alur Proses Analisis Teks</h2>
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>1. Parsing & Lexical Analysis</h3>
+                            <p>Teks ulasan dipecah menjadi unit-unit yang lebih kecil seperti kalimat dan kata (token) untuk dianalisis satu per satu.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>2. Stop-word Removal</h3>
+                            <p>Kata-kata umum yang tidak memiliki makna sentimen (seperti 'di', 'yang', 'dan', 'itu') akan dihapus agar tidak mengganggu analisis.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>3. Phrase Detection</h3>
+                            <p>Sistem mendeteksi frasa penting yang mengubah makna, contohnya frasa negasi seperti "tidak bagus" atau "kurang memuaskan".</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>4. Stemming & Lemmatization</h3>
+                            <p>Setiap kata yang tersisa diubah ke bentuk dasarnya untuk memahami konteks inti dari ulasan.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>5. Indexing & Analysis</h3>
+                            <p>Kata-kata yang telah bersih kemudian diindeks dan dianalisis menggunakan aturan sistem pakar kami untuk menentukan sentimen akhir.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="cta-section" data-aos="fade-up">
+                 <h2>Tertarik Mencoba?</h2>
+                 <p>Lihat bagaimana SentiCheck bekerja secara langsung dengan menganalisis ulasan Anda.</p>
+                 <a href="{{ url_for('input_review') }}" class="cta-button">Mulai Analisis Sekarang</a>
+            </section>
+
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SentiCheck. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+</html>

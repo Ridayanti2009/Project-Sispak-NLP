@@ -3,51 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SentiCheck - Analisis Sentimen Cerdas</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <title>SentiCheck - Analisis Sentimen Ulasan Produk</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-
+    <!-- Header -->
     <header>
-        <nav>
-            <div class="logo">
-                SentiCheck
-            </div>
+        <nav class="container">
+            <a href="#" class="logo">SentiCheck</a>
             <ul class="nav-links">
-                <li><a href="#">Beranda</a></li>
-                <li><a href="#">Tentang</a></li>
-                <li><a href="#">API</a></li>
+                <li><a href="{{ url_for('home') }}">Beranda</a></li>
+                <li><a href="{{ url_for('hasil') }}">Hasil</a></li>
+                <li><a href="{{ url_for('tentang') }}">Tentang</a></li>
+                <li><a href="{{ url_for('input_review') }}">Coba Sekarang</a></li>
+
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="analysis-container">
-                <div class="icon">📊</div>
-                <h1>Analisis Sentimen Instan</h1>
-                <p>Tempelkan ulasan produk, komentar, atau teks apa pun untuk mengetahui sentimen di baliknya secara akurat.</p>
-                
-                <form action="#" method="post" class="analysis-form">
-                    <textarea 
-                        name="review_text" 
-                        id="review_text" 
-                        rows="6" 
-                        placeholder="Contoh: 'Kualitas kamera hp ini sangat bagus, gambarnya jernih banget!'"></textarea>
-                    <button type="submit" class="cta-button">Analisis Sekarang</button>
-                </form>
-            </div>
-        </section>
-    </main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 data-aos="fade-up" class="floating">SentiCheck</h1>
+            <p data-aos="fade-up" data-aos-delay="200">
+                Analisis sentimen ulasan produk dengan teknologi AI terdepan. 
+                Dapatkan insights mendalam dari feedback pelanggan Anda.
+            </p>
+            <a href="{{ url_for('input_review') }}" class="cta-button pulse" data-aos="fade-up" data-aos-delay="400">
+                Mulai Analisis Sekarang
+            </a>
+        </div>
+    </section>
 
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 data-aos="fade-up">Fitur Unggulan</h2>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Analisis Akurat</h3>
+                    <p>Algoritma machine learning canggih yang mampu menganalisis sentimen dengan tingkat akurasi tinggi dari berbagai jenis ulasan produk.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Proses Cepat</h3>
+                    <p>Dapatkan hasil analisis dalam hitungan detik. Tidak perlu menunggu lama untuk mendapatkan insights yang Anda butuhkan.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">📊</div>
+                    <h3>Visualisasi Data</h3>
+                    <p>Hasil analisis disajikan dalam bentuk grafik dan chart yang mudah dipahami, membantu Anda mengambil keputusan bisnis yang tepat.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <h2>Apa itu SentiCheck?</h2>
+                    <p>
+                        SentiCheck adalah aplikasi web inovatif yang menggunakan teknologi Natural Language Processing (NLP) 
+                        untuk menganalisis sentimen dari ulasan produk. Aplikasi ini membantu bisnis memahami persepsi 
+                        pelanggan terhadap produk mereka.
+                    </p>
+                    <p>
+                        Dengan SentiCheck, Anda dapat mengidentifikasi apakah ulasan pelanggan bersifat positif, negatif, 
+                        atau netral. Informasi ini sangat berharga untuk meningkatkan kualitas produk dan layanan Anda.
+                    </p>
+                    <a href="{{ url_for('tentang') }}" class="btn-secondary">Pelajari Lebih Lanjut</a>
+                </div>
+                <div class="about-image" data-aos="fade-left">
+                    <div class="about-image-placeholder">
+                        📱💭
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 data-aos="fade-up">Cara Kerja SentiCheck</h2>
+            <div class="steps">
+                <div class="step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">1</div>
+                    <h3>Input Ulasan</h3>
+                    <p>Masukkan teks ulasan produk yang ingin Anda analisis melalui form yang tersedia.</p>
+                </div>
+                <div class="step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">2</div>
+                    <h3>Proses Analisis</h3>
+                    <p>AI kami akan memproses teks menggunakan algoritma NLP untuk mengidentifikasi sentimen.</p>
+                </div>
+                <div class="step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">3</div>
+                    <h3>Hasil Analisis</h3>
+                    <p>Dapatkan hasil berupa klasifikasi sentimen (positif/negatif/netral) dengan tingkat kepercayaan.</p>
+                </div>
+                <div class="step" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-number">4</div>
+                    <h3>Insights Actionable</h3>
+                    <p>Gunakan hasil analisis untuk mengambil keputusan bisnis yang lebih baik dan meningkatkan produk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 data-aos="fade-up">Siap Menganalisis Ulasan Anda?</h2>
+            <p data-aos="fade-up" data-aos-delay="100">
+                Mulai gunakan SentiCheck sekarang dan dapatkan insights berharga dari feedback pelanggan Anda.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 SentiCheck. Hak Cipta Dilindungi.</p>
+        <div class="container">
+            <p>&copy; 2024 SentiCheck. Semua hak dilindungi. Dibuat dengan ❤️ untuk analisis sentimen yang lebih baik.</p>
+        </div>
     </footer>
 
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1200,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+
+        // Add hover effects to feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
 </body>
 </html>

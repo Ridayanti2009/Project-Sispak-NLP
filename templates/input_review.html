@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Ulasan - SentiCheck</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="home.html" class="logo">SentiCheck</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}">Beranda</a></li>
+                <li><a href="{{ url_for('hasil') }}">Hasil</a></li>
+                <li><a href="{{ url_for('tentang') }}">Tentang</a></li>
+                <li><a href="{{ url_for('input_review') }}" class="active">Analisis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header" data-aos="fade-up">
+                <h1>Analisis Sentimen Ulasan</h1>
+                <p>Masukkan ulasan produk yang ingin Anda analisis dan dapatkan insights sentimen secara real-time</p>
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container" data-aos="fade-up" data-aos-delay="200">
+                <form id="reviewForm" method="POST" action="/analyze">
+                    <!-- Product Information -->
+                    <div class="form-section">
+                        <h3><span class="icon">📦</span> Informasi Produk</h3>
+                        <div class="form-group">
+                            <label for="productName">Nama Produk (Opsional)</label>
+                            <input type="text" id="productName" name="product_name" class="form-control" 
+                                   placeholder="Contoh: iPhone 15 Pro, Samsung Galaxy S24, dll.">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Kategori Produk</label>
+                            <select id="category" name="category" class="form-control">
+                                <option value="">Pilih Kategori</option>
+                                <option value="elektronik">Elektronik</option>
+                                <option value="fashion">Fashion</option>
+                                <option value="makanan">Makanan & Minuman</option>
+                                <option value="kecantikan">Kecantikan & Kesehatan</option>
+                                <option value="rumah-tangga">Rumah Tangga</option>
+                                <option value="olahraga">Olahraga & Outdoor</option>
+                                <option value="buku">Buku & Media</option>
+                                <option value="lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Review Input -->
+                    <div class="form-section">
+                        <h3><span class="icon">💭</span> Ulasan Produk</h3>
+                        <div class="form-group">
+                            <label for="reviewText">Teks Ulasan <span style="color: #8accf9;">*</span></label>
+                            <textarea id="reviewText" name="review_text" class="form-control" 
+                                      placeholder="Masukkan ulasan produk yang ingin dianalisis...&#10;&#10;Contoh:&#10;'Produk ini sangat bagus! Kualitasnya melebihi ekspektasi saya. Pengiriman cepat dan packaging rapi. Sangat recommended!'&#10;&#10;atau&#10;&#10;'Kecewa dengan produk ini. Kualitas tidak sesuai dengan harga. Barang datang rusak dan customer service tidak responsif.'"
+                                      required maxlength="1000"></textarea>
+                            <div class="char-counter" id="charCounter">0/1000 karakter</div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="analyzeBtn">
+                            <span>🔍</span> Analisis Sentimen
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="clearBtn">
+                            <span>🗑️</span> Bersihkan Form
+                        </button>
+                    </div>
+
+                    <!-- Loading Animation -->
+                    <div class="loading" id="loadingDiv">
+                        <div class="spinner"></div>
+                        <p>Sedang menganalisis sentimen ulasan Anda...</p>
+                    </div>
+
+                    <!-- Success Animation -->
+                    <div class="success-animation" id="successDiv">
+                        <div class="success-icon">✅</div>
+                        <p>Analisis berhasil! Redirecting ke halaman hasil...</p>
+                    </div>
+                </form>
+
+                <!-- Examples Section -->
+                <div class="examples-section" data-aos="fade-up" data-aos-delay="400">
+                    <h4>💡 Contoh Ulasan untuk Dicoba</h4>
+                    <div class="example-reviews">
+                        <div class="example-review" onclick="useExample(this)">
+                            <div class="example-label">Positif</div>
+                            <div class="example-text">Produk ini luar biasa! Kualitas premium dengan harga terjangkau. Pengiriman super cepat dan packaging sangat rapi. Penjual sangat responsif. Highly recommended!</div>
+                        </div>
+                        <div class="example-review" onclick="useExample(this)">
+                            <div class="example-label">Negatif</div>
+                            <div class="example-text">Sangat kecewa dengan pembelian ini. Produk tidak sesuai deskripsi, kualitas buruk, dan customer service tidak membantu sama sekali. Tidak recommend!</div>
+                        </div>
+                        <div class="example-review" onclick="useExample(this)">
+                            <div class="example-label">Netral</div>
+                            <div class="example-text">Produk standar sesuai harga. Ada beberapa kelebihan dan kekurangan. Pengiriman normal, packaging biasa saja. Overall okay lah.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1200,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Character counter
+        const reviewText = document.getElementById('reviewText');
+        const charCounter = document.getElementById('charCounter');
+        const maxLength = 1000;
+
+        reviewText.addEventListener('input', function() {
+            const currentLength = this.value.length;
+            charCounter.textContent = `${currentLength}/${maxLength} karakter`;
+            
+            // Change color based on character count
+            charCounter.className = 'char-counter';
+            if (currentLength > maxLength * 0.8) {
+                charCounter.classList.add('warning');
+            }
+            if (currentLength > maxLength * 0.95) {
+                charCounter.classList.remove('warning');
+                charCounter.classList.add('danger');
+            }
+        });
+
+        // Use example function
+        function useExample(element) {
+            const exampleText = element.querySelector('.example-text').textContent;
+            reviewText.value = exampleText;
+            reviewText.dispatchEvent(new Event('input')); // Trigger character counter update
+            
+            // Smooth scroll to textarea
+            reviewText.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Add visual feedback
+            element.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                element.style.transform = 'translateY(-2px)';
+            }, 150);
+        }
+
+        // Clear form function
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            if (confirm('Apakah Anda yakin ingin membersihkan semua data?')) {
+                document.getElementById('reviewForm').reset();
+                charCounter.textContent = '0/1000 karakter';
+                charCounter.className = 'char-counter';
+            }
+        });
+
+        // Form submission
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const reviewTextValue = reviewText.value.trim();
+            if (!reviewTextValue) {
+                alert('Mohon masukkan teks ulasan terlebih dahulu!');
+                reviewText.focus();
+                return;
+            }
+
+            if (reviewTextValue.length < 10) {
+                alert('Ulasan terlalu pendek! Minimal 10 karakter.');
+                reviewText.focus();
+                return;
+            }
+
+            // Show loading
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const loadingDiv = document.getElementById('loadingDiv');
+            const successDiv = document.getElementById('successDiv');
+            
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = 'Menganalisis...';
+            loadingDiv.classList.add('active');
+
+            // Simulate API call (replace with actual backend call)
+            setTimeout(() => {
+                loadingDiv.classList.remove('active');
+                successDiv.classList.add('active');
+                
+                // Simulate redirect to results page
+                setTimeout(() => {
+                    // In real application, this would submit to your backend
+                    // For now, we'll just redirect to hasil.html
+                    window.location.href = 'hasil.html';
+                }, 2000);
+            }, 3000);
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+
+        // Auto-resize textarea
+        reviewText.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 300) + 'px';
+        });
+
+        // Add typing effect for placeholder (optional enhancement)
+        let placeholderText = "Masukkan ulasan produk yang ingin dianalisis...\n\nContoh:\n'Produk ini sangat bagus! Kualitasnya melebihi ekspektasi saya. Pengiriman cepat dan packaging rapi. Sangat recommended!'\n\natau\n\n'Kecewa dengan produk ini. Kualitas tidak sesuai dengan harga. Barang datang rusak dan customer service tidak responsif.'";
+        
+        // Focus and blur effects for better UX
+        reviewText.addEventListener('focus', function() {
+            this.style.background = 'rgba(255, 255, 255, 0.2)';
+        });
+
+        reviewText.addEventListener('blur', function() {
+            this.style.background = 'rgba(255, 255, 255, 0.1)';
+        });
+    </script>
+</body>
+</html>
