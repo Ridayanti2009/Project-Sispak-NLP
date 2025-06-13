@@ -32,7 +32,47 @@ NEGATIVE_WORDS = [
     'sakit', 'racun', 'alergi', 'gatal', 'pusing', 'mual', 'keracunan',
     
     # Umum
-    'susah', 'sulit', 'repot', 'ribet', 'berisik', 'bising', 'sumpek'
+    'susah', 'sulit', 'repot', 'ribet', 'berisik', 'bising', 'sumpek',
+
+    # Elektronik
+    'panas', 'hangus', 'korslet', 'meledak', 'batrei', 'boros', 'tahan', 
+    'garansi', 'hang', 'lemot', 'error', 'bluetooth', 'wifi', 'sinyal',
+    'patah', 'retak', 'layar', 'mati', 'blank', 'flek', 'berat',
+    
+    # Fashion
+    'kecilan', 'kebesaran', 'gatal', 'gerah', 'ketat', 'longgar', 'luntur',
+    'sobek', 'kusut', 'kumal', 'bau', 'warna', 'fade', 'jahitan',
+    'kancing', 'resleting', 'selip', 'tipis', 'transparan',
+    
+    # Makanan & Minuman
+    'basi', 'kadaluarsa', 'jamuran', 'berulat', 'berjamur', 'tengik',
+    'hambar', 'anyir', 'asam', 'pahit', 'kelebihan', 'gula', 'goreng',
+    'berminyak', 'berpasir', 'berbulu', 'berkutu', 'berlendir',
+    
+    # Kecantikan & Kesehatan
+    'iritasi', 'alergi', 'gatal', 'perih', 'panas', 'merah', 'bengkak',
+    'komedo', 'jerawat', 'kemerahan', 'kering', 'mengelupas', 'ketombe',
+    'rontok', 'botak', 'pecah', 'kuku', 'kaki', 'bau', 'keringat',
+    
+    # Rumah Tangga
+    'berkarat', 'berkerak', 'penyok', 'peyot', 'berlubang', 'tumpul',
+    'berjamur', 'berdebu', 'berkutu', 'rayap', 'kutu', 'berantakan',
+    'berminyak', 'lengket', 'berkerak', 'tersumbat', 'mampet',
+    
+    # Olahraga & Outdoor
+    'palsu', 'kw', 'sobek', 'robek', 'pudar', 'kempes', 'bocor',
+    'berkarat', 'berbau', 'berjamur', 'licin', 'berbahaya', 'tergelincir',
+    'kram', 'keseleo', 'kaku', 'pegal', 'nyeri', 'otot',
+    
+    # Buku & Media
+    'robek', 'sobek', 'lecek', 'basah', 'berjamur', 'kuning', 'buram',
+    'blur', 'error', 'hang', 'lag', 'buffering', 'putus', 'nyambung',
+    'patah', 'cd', 'dvd', 'gores', 'skip', 'macet',
+    
+    # Lainnya
+    'hilang', 'tertinggal', 'tercuri', 'terbakar', 'terkena', 'banjir',
+    'tersesat', 'terlambat', 'kabur', 'tipu', 'scam', 'bodong', 'kw',
+    'palsu', 'aspal', 'terkontaminasi', 'terinfeksi', 'terkena', 'virus'
 ]
 
 POSITIVE_WORDS = [
@@ -71,7 +111,56 @@ POSITIVE_WORDS = [
     'rekomendasi', 'referensi', 'acuan', 'standar', 'role model',
     
     # Umum
-    'sukses', 'hebat', 'keren', 'wow', 'fantastis', 'epik', 'legendaris'
+    'sukses', 'hebat', 'keren', 'wow', 'fantastis', 'epik', 'legendaris',
+    
+    # Elektronik
+    'canggih', 'mutakhir', 'kekinian', 'responsive', 'awet', 'tahan',
+    'batrei', 'hemat', 'full', 'hd', '4k', '8k', 'hdr', 'dolby',
+    'stereo', 'surround', 'nirkabel', 'bluetooth', 'fast', 'charging',
+    'garansi', 'resmi', 'original', 'premium', 'sleek', 'ramping',
+    
+    # Fashion
+    'nyaman', 'adem', 'breathable', 'anti', 'keringat', 'stretch',
+    'elastis', 'size', 'standar', 'premium', 'branded', 'eksklusif',
+    'limited', 'edition', 'waterproof', 'anti', 'air', 'wrinkle',
+    'free', 'anti', 'luntur', 'lembut', 'halus', 'mewah',
+    
+    # Makanan & Minuman
+    'segar', 'organik', 'natural', 'homemade', 'homegrown', 'fresh',
+    'rendah', 'kalori', 'sugar', 'free', 'gluten', 'free', 'lactose',
+    'free', 'halal', 'thoyyib', 'higienis', 'steril', 'pasteurisasi',
+    'kaya', 'nutrisi', 'vitamin', 'mineral', 'probiotik', 'prebiotik',
+    
+    # Kecantikan & Kesehatan
+    'hypoallergenic', 'non-comedogenic', 'dermatologist', 'tested',
+    'clinical', 'proven', 'organic', 'natural', 'herbal', 'botanical',
+    'fragrance', 'free', 'paraben', 'free', 'sulfate', 'free',
+    'anti-aging', 'anti-wrinkle', 'brightening', 'moisturizing',
+    'nourishing', 'rejuvenating', 'revitalizing',
+    
+    # Rumah Tangga
+    'antikarat', 'tahan', 'lama', 'stainless', 'food', 'grade',
+    'bpa', 'free', 'microwave', 'safe', 'dishwasher', 'safe',
+    'non-stick', 'scratch', 'resistant', 'heat', 'resistant',
+    'space', 'saving', 'foldable', 'adjustable', 'multifungsi',
+    
+    # Olahraga & Outdoor
+    'waterproof', 'windproof', 'shockproof', 'dustproof', 'anti-slip',
+    'breathable', 'lightweight', 'portable', 'compact', 'adjustable',
+    'shock', 'absorption', 'high', 'performance', 'professional',
+    'grade', 'competition', 'level', 'training', 'fitness',
+    
+    # Buku & Media
+    'hardcover', 'limited', 'edition', 'collector', 'item', 'rare',
+    'out', 'print', 'first', 'edition', 'signed', 'autographed',
+    'high', 'resolution', 'bluray', 'remastered', 'uncut', 'director',
+    'cut', 'special', 'features', 'bonus', 'content', 'interactive',
+    
+    # Lainnya
+    'unik', 'langka', 'antik', 'vintage', 'retro', 'collectible',
+    'handmade', 'custom', 'personalized', 'tailor', 'made', 'bespoke',
+    'one', 'kind', 'exclusive', 'import', 'original', 'genuine',
+    'certified', 'authentic', 'warranty', 'guarantee', 'insurance'
 ]
 
 def analyze_sentiment(text):
